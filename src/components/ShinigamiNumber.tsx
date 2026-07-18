@@ -1,15 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { randomDeathNumber } from "@/lib/randomNumber";
 
-const NUMBER_RANGE: [number, number] = [1_000_000, 99_999_999];
 const REVEAL_STEPS = 7;
 const REVEAL_INTERVAL_MS = 45;
-
-function randomDisplayNumber(): number {
-  const [min, max] = NUMBER_RANGE;
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 interface Props {
   value: number;
@@ -22,7 +17,7 @@ interface Props {
  * 一瞬揺れてから本当の数字に収束する(iOS版 ShinigamiNumberView.swift の移植)。
  */
 export function ShinigamiNumber({ value, mirrored }: Props) {
-  const [display, setDisplay] = useState(randomDisplayNumber);
+  const [display, setDisplay] = useState(randomDeathNumber);
 
   useEffect(() => {
     let step = 0;
@@ -32,7 +27,7 @@ export function ShinigamiNumber({ value, mirrored }: Props) {
         setDisplay(value);
         window.clearInterval(timer);
       } else {
-        setDisplay(randomDisplayNumber());
+        setDisplay(randomDeathNumber());
       }
     }, REVEAL_INTERVAL_MS);
 

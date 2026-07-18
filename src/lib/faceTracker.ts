@@ -1,14 +1,9 @@
+import { randomDeathNumber } from "@/lib/randomNumber";
 import type { NormalizedBox, TrackedFace } from "@/types/face";
 
-const NUMBER_RANGE: [number, number] = [1_000_000, 99_999_999];
 const IOU_MATCH_THRESHOLD = 0.3;
 const POSITION_SMOOTHING = 0.5;
 const MAX_MISSED_FRAMES = 12;
-
-function randomNumber(): number {
-  const [min, max] = NUMBER_RANGE;
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 function iou(a: NormalizedBox, b: NormalizedBox): number {
   const x1 = Math.max(a.x, b.x);
@@ -64,7 +59,7 @@ export class FaceTracker {
     for (const box of remaining) {
       result.push({
         id: crypto.randomUUID(),
-        number: randomNumber(),
+        number: randomDeathNumber(),
         box,
         framesSinceSeen: 0,
       });
