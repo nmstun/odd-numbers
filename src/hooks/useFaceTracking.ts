@@ -8,7 +8,7 @@ import type { NormalizedBox, TrackedFace } from "@/types/face";
 const WASM_BASE_URL =
   "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm";
 const MODEL_URL =
-  "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.task";
+  "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite";
 
 export type DetectorStatus = "loading" | "ready" | "error";
 
