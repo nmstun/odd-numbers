@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export type CameraStatus =
   | "idle"
@@ -10,11 +10,14 @@ export type CameraStatus =
   | "unsupported"
   | "error";
 
+export type FacingMode = "environment" | "user";
+
 export function useCamera() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const [status, setStatus] = useState<CameraStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [facingMode, setFacingMode] = useState<FacingMode>("environment");
 
   useEffect(() => {
     let cancelled = false;
@@ -28,7 +31,7 @@ export function useCamera() {
       setStatus("requesting");
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: { ideal: "environment" } },
+          video: { facingMode: { ideal: facingMode } },
           audio: false,
         });
 
@@ -37,6 +40,7 @@ export function useCamera() {
           return;
         }
 
+        streamRef.current?.getTracks().forEach((track) => track.stop());
         streamRef.current = stream;
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
@@ -64,7 +68,11 @@ export function useCamera() {
       streamRef.current?.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
     };
+  }, [facingMode]);
+
+  const toggleFacingMode = useCallback(() => {
+    setFacingMode((mode) => (mode === "environment" ? "user" : "environment"));
   }, []);
 
-  return { videoRef, status, errorMessage };
+  return { videoRef, status, errorMessage, facingMode, toggleFacingMode };
 }

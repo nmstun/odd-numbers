@@ -9,6 +9,7 @@ const HEAD_MARGIN_PX = 12;
 interface Props {
   videoRef: RefObject<HTMLVideoElement | null>;
   trackedFaces: TrackedFace[];
+  mirrored?: boolean;
 }
 
 /**
@@ -16,7 +17,7 @@ interface Props {
  * そのまま使うと表示位置とずれる。表示サイズとの拡大率・トリミング量を
  * 計算してから正規化座標を画面座標に変換する。
  */
-export function NumberOverlay({ videoRef, trackedFaces }: Props) {
+export function NumberOverlay({ videoRef, trackedFaces, mirrored }: Props) {
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const [videoSize, setVideoSize] = useState({ width: 0, height: 0 });
 
@@ -72,7 +73,7 @@ export function NumberOverlay({ videoRef, trackedFaces }: Props) {
             className="absolute -translate-x-1/2 -translate-y-full"
             style={{ left: centerX, top: topY }}
           >
-            <ShinigamiNumber value={face.number} />
+            <ShinigamiNumber value={face.number} mirrored={mirrored} />
           </div>
         );
       })}

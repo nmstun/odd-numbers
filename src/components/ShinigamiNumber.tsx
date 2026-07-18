@@ -13,13 +13,15 @@ function randomDisplayNumber(): number {
 
 interface Props {
   value: number;
+  /** 前面カメラの鏡像表示時、文字だけ読める向きに戻すため反転させる */
+  mirrored?: boolean;
 }
 
 /**
  * 死神の目風に赤くにじんで浮かぶ数字。マウント時だけ数字がスロットのように
  * 一瞬揺れてから本当の数字に収束する(iOS版 ShinigamiNumberView.swift の移植)。
  */
-export function ShinigamiNumber({ value }: Props) {
+export function ShinigamiNumber({ value, mirrored }: Props) {
   const [display, setDisplay] = useState(randomDisplayNumber);
 
   useEffect(() => {
@@ -39,5 +41,12 @@ export function ShinigamiNumber({ value }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <span className="shinigami-number">{display}</span>;
+  return (
+    <span
+      className="shinigami-number"
+      style={mirrored ? { display: "inline-block", transform: "scaleX(-1)" } : undefined}
+    >
+      {display}
+    </span>
+  );
 }
