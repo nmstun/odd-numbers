@@ -36,6 +36,10 @@ npm run dev
 カメラAPIはHTTPS、または `localhost` でのみ動作します。実機のスマートフォンで試す場合は
 Vercel等にデプロイするか、HTTPSでトンネリングしてアクセスしてください。
 
+## 依存関係の更新
+
+Renovate（`renovate.json`）により、依存パッケージの更新PRが週次で自動作成されます（実際に動かすにはGitHub Appとして[Renovate](https://github.com/apps/renovate)を本リポジトリにインストールしてください）。lockfile（`package-lock.json`）によりインストールされるバージョンは常に固定されているため、PRを確認してからマージする運用です。
+
 ## 既知の制限 (V1)
 
 - フロント/バックカメラの切り替えは未実装(`facingMode: environment` で背面カメラを優先)
