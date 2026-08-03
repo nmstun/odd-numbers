@@ -27,14 +27,22 @@
 - `src/app/icon.svg` — アプリアイコン。漆黒に赤くにじむ数字「47」を7セグ風の線で描いたもの。フォントに依存させないため文字要素は使っていない
 - `src/app/manifest.ts` — ホーム画面に追加したときの名称とアイコン(Next.jsが `/manifest.webmanifest` として配信し `link` タグも自動挿入する)
 
-`src/app/apple-icon.png`(180px)と `public/icon-192.png` / `public/icon-512.png` は
-`src/app/icon.svg` から `rsvg-convert` で書き出している。図形を変えるときはSVG側だけを直し、
-以下でPNGを作り直す。
+- `src/app/favicon.ico` — Safari用のアイコン。**Safariは `rel="icon"` のSVGを使わない**ため、
+  SVGだけ置くとSafariのタブが空になる。Next.jsは `favicon.ico` と `icon.svg` の両方を
+  `link` タグとして出力するので、Safariはicoを、ChromeはSVGを使う
+- `scripts/make-favicon-ico.mjs` — icoの生成スクリプト。icoの中身はBMPではなくPNGを
+  そのまま詰めており、そのPNGは**RGBAでなければならない**（`rsvg-convert` は全ピクセルが
+  不透明だとRGBで書き出すが、Next.jsのICOデコーダーはRGBAを要求し、RGBのままだと
+  ビルドが500になる）。この2点をスクリプトが吸収している
+
+`src/app/icon.svg` 以外はすべてそこから書き出している。図形を変えるときはSVG側だけを直し、
+以下で残りを作り直す。
 
 ```sh
 rsvg-convert -w 180 -h 180 src/app/icon.svg -o src/app/apple-icon.png
 rsvg-convert -w 192 -h 192 src/app/icon.svg -o public/icon-192.png
 rsvg-convert -w 512 -h 512 src/app/icon.svg -o public/icon-512.png
+node scripts/make-favicon-ico.mjs src/app/icon.svg src/app/favicon.ico
 ```
 
 ## セットアップ
