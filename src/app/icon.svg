@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- 死神の目モチーフ: 漆黒に赤くにじむ数字「47」。フォント非依存にするため7セグ風の線で描く -->
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+  <rect width="64" height="64" fill="#050505"/>
+  <g stroke="#ff1f1f" stroke-width="3.6" stroke-linecap="round" fill="none" filter="url(#glow)" opacity=".9">
+    <path d="M13 22 V29"/><path d="M16 32 H26"/><path d="M29 22 V29"/><path d="M29 35 V42"/>
+    <path d="M38 19 H48"/><path d="M51 22 V29"/><path d="M51 35 V42"/>
+  </g>
+  <g stroke="#ff4d4d" stroke-width="3.6" stroke-linecap="round" fill="none">
+    <path d="M13 22 V29"/><path d="M16 32 H26"/><path d="M29 22 V29"/><path d="M29 35 V42"/>
+    <path d="M38 19 H48"/><path d="M51 22 V29"/><path d="M51 35 V42"/>
+  </g>
+</svg>
