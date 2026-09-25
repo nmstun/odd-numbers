@@ -62,5 +62,6 @@ Renovate（`renovate.json`）により、依存パッケージの更新PRが週�
 
 ## 既知の制限 (V1)
 
-- フロント/バックカメラの切り替えは未実装(`facingMode: environment` で背面カメラを優先)
 - 複数人が大きく重なった場合、追跡がまれに入れ替わることがある(IoUによる簡易追跡のため)
+
+フロント/バックカメラの切り替えは実装済み(画面右上の🔄ボタン、`useCamera.ts`の`toggleFacingMode`)。
